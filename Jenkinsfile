@@ -28,7 +28,7 @@ pipeline{
                 sh 'curl -i http://localhost:3000'
             }
         }
-        stage(Stop docker container){
+        stage("Stop docker container"){
             steps{
                 echo "=====Stop docker container======"
                 sh 'docker-compose down'
