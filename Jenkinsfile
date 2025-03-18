@@ -5,7 +5,7 @@ pipeline{
         stage("Copy repo"){
             steps{
                 echo "========COPY REPO========"
-                git branch 'main', url: 'https://github.com/andrii-br/test-jenkinsfile-2.git'
+                git branch: 'main', url: 'https://github.com/andrii-br/test-jenkinsfile-2.git'
             }
         }
         stage("Docker build for app.js"){
