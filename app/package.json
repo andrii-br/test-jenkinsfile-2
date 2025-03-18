@@ -1,0 +1,11 @@
+{
+    "name": "node-jenkins-app",
+    "version": "1.0.0",
+    "description": "Simple Node.js application for Jenkins and Docker",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "author": "Andrey",
+    "license": "MIT"
+  }
