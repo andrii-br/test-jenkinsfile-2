@@ -11,7 +11,7 @@ pipeline{
         stage("Docker build for app.js"){
             steps{
                 echo "========Docker build========"
-                sh 'docker build'
+                sh 'docker build .'
             }
         }
         stage("Run container"){
