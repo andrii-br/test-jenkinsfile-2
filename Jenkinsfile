@@ -31,7 +31,7 @@ pipeline{
         stage(Stop docker container){
             steps{
                 echo "=====Stop docker container======"
-                sh 'docker down'
+                sh 'docker-compose down'
             }
         }
     }
