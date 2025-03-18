@@ -2,9 +2,9 @@ FROM node:23-alpine3.20
 
 WORKDIR /appnodejss
 
-COPY . /appnodejss/
+COPY ./app/ /appnodejss/
 
-RUN nmp install -r package.json
+RUN nmp install 
 
 EXPOSE 3000
 
