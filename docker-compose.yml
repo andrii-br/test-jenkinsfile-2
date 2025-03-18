@@ -1,0 +1,8 @@
+services:
+  appjs:
+    build: ./app/
+    container_name: appjs
+    ports:
+      - "3000:3000"
+      
+      
