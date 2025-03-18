@@ -17,7 +17,7 @@ pipeline{
         stage("Run container"){
             steps{
                 echo "========Run container========"
-                sh 'docker-compose up -d'
+                sh 'docker compose up -d'
             }
         }
         stage("TEST"){
@@ -31,7 +31,7 @@ pipeline{
         stage("Stop docker container"){
             steps{
                 echo "=====Stop docker container======"
-                sh 'docker-compose down'
+                sh 'docker compose down'
             }
         }
     }
