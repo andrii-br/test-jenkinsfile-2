@@ -29,7 +29,7 @@ pipeline {
         }
         stage("Deploy to server") {
             steps {
-                sshagent(['server-credentials']) {
+                sshagent(['server']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no server@192.168.100.4 "
                         docker pull ${env.IMAGE_NAME} &&
