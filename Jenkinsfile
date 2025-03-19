@@ -45,7 +45,7 @@ pipeline{
             steps{
                 sshagent([server]){
                     sh '''
-                        ssh -o StrictHostKeyChecking=no user@your-server "docker pull $IMAGE_NAME && docker run -d -p 80:80 $IMAGE_NAME"
+                        ssh -o StrictHostKeyChecking=no server@192.168.100.4 "docker pull $IMAGE_NAME && docker run -d -p 80:80 $IMAGE_NAME"
                     '''
                 }
             }
