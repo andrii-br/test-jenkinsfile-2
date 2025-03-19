@@ -28,15 +28,11 @@ pipeline {
             }
         }
         stage("Deploy to server") {
-            steps {
-                sshagent(['server']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no server@192.168.100.4 "
-                        docker pull ${env.IMAGE_NAME} &&
-                        docker stop my-app || true &&
-                        docker rm my-app || true &&
-                        docker run -d --name my-app -p 80:80 ${env.IMAGE_NAME}"
-                    '''
+            steps{
+                sshagent(['server']){
+                sh '''
+                /bin/bash -c "ssh -o StrictHostKeyChecking=no server@192.168.100.4 'docker pull $IMAGE_NAME && docker run -d -p 80:80 $IMAGE_NAME'"
+            '''
                 }
             }
         }
