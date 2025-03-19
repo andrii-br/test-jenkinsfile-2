@@ -1,6 +1,10 @@
 pipeline{
     agent any
 
+    environment {
+        IMAGE_NAME = "andriibry:my-app"
+    }
+
     stages{
         stage("Copy repo"){
             steps{
@@ -8,16 +12,25 @@ pipeline{
                 git branch: 'main', url: 'https://github.com/andrii-br/test-jenkinsfile-2.git'
             }
         }
-        stage("Docker build for app.js"){
+        stage("Build docker image"){
             steps{
                 echo "========Docker build========"
-                sh 'docker build .'
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
         stage("Run container"){
             steps{
                 echo "========Run container========"
                 sh 'docker compose up -d'
+            }
+        }
+        stage("Push to DockerHub"){
+            steps{
+                script{
+                    docker.withRegistry('', 'dockerhub-credentials'){
+                        sh 'docker push $IMAGE_NAME'
+                    }
+                }
             }
         }
         stage("TEST"){
@@ -28,10 +41,13 @@ pipeline{
                 sh 'curl -i http://localhost:3000'
             }
         }
-        stage("Stop docker container"){
+        stage("Deploy to server"){
             steps{
-                echo "=====Stop docker container======"
-                sh 'docker compose down'
+                sshagent([server]){
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no user@your-server "docker pull $IMAGE_NAME && docker run -d -p 80:80 $IMAGE_NAME"
+                    '''
+                }
             }
         }
     }
